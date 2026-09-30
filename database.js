@@ -93,7 +93,7 @@ let questions = [
     "question":
       "Which game engine was developed specifically by Japan Studio / Team Ico to handle the complex physics and giant climbing mechanics of PlayStation 2's 'Shadow of the Colossus'?",
     "answer_1": "Kinetica Engine",
-    "answer_2": "Custom In-House Engine (Ico Engine iteration)",
+    "answer_2": "Ico Engine",
     "answer_3": "RenderWare",
     "answer_4": "PhyreEngine",
     "right-answer": 2,
@@ -192,14 +192,11 @@ let questions = [
   {
     "category": "frontend",
     "question":
-      "How do ES6 Arrow Functions handle the 'this' keyword compared to traditional function declarations?",
-    "answer_1":
-      "They bind 'this' dynamically to the object calling the function",
-    "answer_2":
-      "They do not have their own 'this' and inherit it lexically from the enclosing scope",
-    "answer_3": "They always set 'this' to 'undefined' in strict mode",
-    "answer_4":
-      "They rebind 'this' automatically to the global 'window' object",
-    "right-answer": 2,
+      "In JavaScript, what value is returned when evaluating 'typeof null'?",
+    "answer_1": "null",
+    "answer_2": "undefined",
+    "answer_3": "object",
+    "answer_4": "boolean",
+    "right-answer": 3,
   },
 ];
