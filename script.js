@@ -1,16 +1,21 @@
 // @ts-nocheck
+// Global State
 let rightQuestions = 0;
 let currentQuestion = 0;
 let currentCategory = [];
+let canAnswer = true;
 
+// Audio Objects
 const audioSuccess = new Audio("sounds/right.mp3");
 const audioFail = new Audio("sounds/wrong.mp3");
 
+// Initialization
 function init() {
   currentCategory = questions;
   updateQuizView();
 }
 
+// Category Filtering
 function filterCategory(category, event, element) {
   event.preventDefault();
   updateCategorySelectionUI(element);
@@ -32,6 +37,7 @@ function applyCategoryFilter(category) {
   }
 }
 
+// Quiz View & Screen Management
 function updateQuizView() {
   setElementText("all-questions", currentCategory.length);
   showQuestion();
@@ -87,7 +93,12 @@ function updateProgressbar() {
   progressBar.style.width = `${percent}%`;
 }
 
+// Answer Logic & Interaction Lock
 function answer(selection) {
+  if (!canAnswer) return;
+  canAnswer = false;
+  disableAnswerButtons();
+
   const question = currentCategory[currentQuestion];
   const selectedNumber = selection.slice(-1);
   const isCorrect = rightAnswerSelected(
@@ -123,11 +134,19 @@ function highlightAnswerCard(elementId, cssClass) {
   document.getElementById(elementId).parentNode.classList.add(cssClass);
 }
 
+function disableAnswerButtons() {
+  for (let i = 1; i <= 4; i++) {
+    const card = document.getElementById(`answer_${i}`).parentNode;
+    card.style.pointerEvents = "none";
+  }
+}
+
 function playSound(audioObject) {
   audioObject.currentTime = 0;
   audioObject.play();
 }
 
+// Game Navigation & Resets
 function nextQuestion() {
   currentQuestion++;
   document.getElementById("next-button").disabled = true;
@@ -136,9 +155,11 @@ function nextQuestion() {
 }
 
 function resetAnswerButtons() {
+  canAnswer = true;
   for (let i = 1; i <= 4; i++) {
     const card = document.getElementById(`answer_${i}`).parentNode;
     card.classList.remove("bg-success", "bg-danger");
+    card.style.pointerEvents = "auto";
   }
 }
 
@@ -150,6 +171,7 @@ function restartGame() {
   updateQuizView();
 }
 
+// Utility Function
 function setElementText(elementId, text) {
   document.getElementById(elementId).innerHTML = text;
 }
