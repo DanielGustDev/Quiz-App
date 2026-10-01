@@ -1,27 +1,55 @@
 // @ts-nocheck
 let rightQuestions = 0;
 let currentQuestion = 0;
+let currentCategory = [];
 
 function init() {
-  document.getElementById("all-questions").innerHTML = questions.length;
+  currentCategory = questions;
+  updateQuizView();
+}
 
+function filterCategory(category, event, element) {
+  event.preventDefault(); // Verhindert das Neuladen/Springen der Seite
+
+  // Active-Status der Buttons umschalten
+  let links = document.querySelectorAll(".category-sidebar .list-group-item");
+  links.forEach((link) => link.classList.remove("active"));
+  element.classList.add("active");
+
+  // Array filtern
+  if (category === "all") {
+    currentCategory = questions;
+  } else {
+    currentCategory = questions.filter((q) => q.category === category);
+  }
+
+  // Quiz mit den gefilterten Fragen neu starten
+  restartGame();
+}
+
+function updateQuizView() {
+  document.getElementById("all-questions").innerHTML = currentCategory.length;
   showQuestion();
 }
 
 function showQuestion() {
-  if (currentQuestion >= questions.length) {
+  if (currentQuestion >= currentCategory.length) {
     document.getElementById("endscreen").style = "";
     document.getElementById("question-body").style = "display: none;";
-    document.getElementById("amount-of-questions").innerHTML = questions.length;
+    document.getElementById("amount-of-questions").innerHTML =
+      currentCategory.length;
     document.getElementById("score").innerHTML = rightQuestions;
   } else {
-    let percent = (currentQuestion + 1) / questions.length;
+    document.getElementById("endscreen").style = "display: none;";
+    document.getElementById("question-body").style = "";
+
+    let percent = (currentQuestion + 1) / currentCategory.length;
     percent = Math.round(percent * 100);
 
     document.getElementById("progress-bar").innerHTML = `${percent}%`;
     document.getElementById("progress-bar").style = `width: ${percent}%`;
 
-    let question = questions[currentQuestion];
+    let question = currentCategory[currentQuestion];
 
     document.getElementById("question-number").innerHTML = currentQuestion + 1;
     document.getElementById("questiontext").innerHTML = question["question"];
@@ -33,7 +61,7 @@ function showQuestion() {
 }
 
 function answer(selection) {
-  let question = questions[currentQuestion];
+  let question = currentCategory[currentQuestion];
   let selectedQuestionNumber = selection.slice(-1);
   let idOfRightAnswer = `answer_${question["right-answer"]}`;
 
@@ -65,11 +93,9 @@ function resetAnswerButtons() {
 }
 
 function restartGame() {
-  document.getElementById("endscreen").style = "display: none;";
-  document.getElementById("question-body").style = "";
-
   rightQuestions = 0;
   currentQuestion = 0;
-
-  init();
+  resetAnswerButtons();
+  document.getElementById("next-button").disabled = true;
+  updateQuizView();
 }

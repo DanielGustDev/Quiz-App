@@ -25,65 +25,78 @@
         </div>
     </nav>
 
-    <div class="main-content">
-        <div class="card quiz-card">
-            <img src="./icons/main-logo.svg" class="card-img-top" alt="Main Logo">
+    <section class="main-content">
+        <!-- Gemeinsamer Wrapper für Sidebar + Quiz-Inhalt -->
+        <div class="quiz-wrapper d-flex shadow">
 
-            <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25"
-                aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar" id="progress-bar" style="width: 0%">0%</div>
-            </div>
-
-            <div class="card-body" id="endscreen" style="display: none;">
-
-                <div>
-                    <h3>Congratiulations!</h3>
-                </div>
-
-                <div>
-                    <p>You answered <b id="score">X</b> of <b id="amount-of-questions">X</b> Questions correctly!</p>
-                </div>
-
-                <div class="new-game-button">
-                    <button onclick="restartGame()" class="btn btn-primary">Restart</button>
-                </div>
-
-            </div>
-            <div class="card-body" id="question-body">
-                <h5 class="card-title" id="questiontext">Question</h5>
-
-                <div class="card quiz-answer mb-2" onclick="answer('answer_1')">
-                    <div class="card-body" id="answer_1">
-                        Answer
-                    </div>
-                </div>
-
-                <div class="card quiz-answer mb-2" onclick="answer('answer_2')">
-                    <div class="card-body" id="answer_2">
-                        Answer
-                    </div>
-                </div>
-
-                <div class="card quiz-answer mb-2" onclick="answer('answer_3')">
-                    <div class="card-body" id="answer_3">
-                        Answer
-                    </div>
-                </div>
-
-                <div class="card quiz-answer mb-2" onclick="answer('answer_4')">
-                    <div class="card-body" id="answer_4">
-                        Answer
-                    </div>
-                </div>
-
-                <div class="question-footer">
-                    <p><b id="question-number">1</b> of <b id="all-questions">5</b> questions</p>
-
-                    <button onclick="nextQuestion()" class="btn btn-primary" id="next-button" disabled>Next</button>
+            <!-- Linke Sidebar (Kategorien) -->
+            <div class="category-sidebar border-end bg-white">
+                <div class="list-group list-group-flush h-100 d-flex flex-column justify-content-evenly">
+                    <a href="#" class="list-group-item list-group-item-action active"
+                        onclick="filterCategory('all', event, this)">All Categories</a>
+                    <a href="#" class="list-group-item list-group-item-action"
+                        onclick="filterCategory('movies', event, this)">Movies</a>
+                    <a href="#" class="list-group-item list-group-item-action"
+                        onclick="filterCategory('games', event, this)">Games</a>
+                    <a href="#" class="list-group-item list-group-item-action"
+                        onclick="filterCategory('austria', event, this)">Austria</a>
+                    <a href="#" class="list-group-item list-group-item-action"
+                        onclick="filterCategory('frontend', event, this)">Frontend</a>
                 </div>
             </div>
+
+            <!-- Rechter Quiz-Hauptbereich -->
+            <div class="quiz-main-content d-flex flex-column flex-grow-1 bg-white">
+                <img src="./icons/main-logo.svg" class="card-img-top" alt="Main Logo">
+
+                <div class="progress" role="progressbar" aria-label="Quiz progress" aria-valuenow="0" aria-valuemin="0"
+                    aria-valuemax="100">
+                    <div class="progress-bar" id="progress-bar" style="width: 0%">0%</div>
+                </div>
+
+                <!-- Endscreen -->
+                <div class="card-body" id="endscreen" style="display: none;">
+                    <div>
+                        <h3>Congratulations!</h3>
+                    </div>
+                    <div>
+                        <p>You answered <b id="score">X</b> of <b id="amount-of-questions">X</b> Questions correctly!
+                        </p>
+                    </div>
+                    <div class="new-game-button">
+                        <button onclick="restartGame()" class="btn btn-primary">Restart</button>
+                    </div>
+                </div>
+
+                <!-- Question Body -->
+                <div class="card-body" id="question-body">
+                    <h5 class="card-title mb-4" id="questiontext">Question</h5>
+
+                    <div class="card quiz-answer mb-2" onclick="answer('answer_1')">
+                        <div class="card-body" id="answer_1">Answer</div>
+                    </div>
+
+                    <div class="card quiz-answer mb-2" onclick="answer('answer_2')">
+                        <div class="card-body" id="answer_2">Answer</div>
+                    </div>
+
+                    <div class="card quiz-answer mb-2" onclick="answer('answer_3')">
+                        <div class="card-body" id="answer_3">Answer</div>
+                    </div>
+
+                    <div class="card quiz-answer mb-2" onclick="answer('answer_4')">
+                        <div class="card-body" id="answer_4">Answer</div>
+                    </div>
+
+                    <div class="question-footer mt-4">
+                        <p class="mb-0"><b id="question-number">1</b> of <b id="all-questions">5</b> questions</p>
+                        <button onclick="nextQuestion()" class="btn btn-primary" id="next-button" disabled>Next</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
+    </section>
 
 </body>
 
