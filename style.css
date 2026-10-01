@@ -93,6 +93,8 @@
 
     height: 400px;
 
+    margin: 16px 0px 16px 0px;
+
     background-image: url(./icons/trophy.png);
     background-repeat: no-repeat;
     background-size: contain;
