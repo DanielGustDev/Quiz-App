@@ -1,6 +1,5 @@
 // @ts-nocheck
 let rightQuestions = 0;
-
 let currentQuestion = 0;
 
 function init() {
@@ -16,6 +15,12 @@ function showQuestion() {
     document.getElementById("amount-of-questions").innerHTML = questions.length;
     document.getElementById("score").innerHTML = rightQuestions;
   } else {
+    let percent = (currentQuestion + 1) / questions.length;
+    percent = Math.round(percent * 100);
+
+    document.getElementById("progress-bar").innerHTML = `${percent}%`;
+    document.getElementById("progress-bar").style = `width: ${percent}%`;
+
     let question = questions[currentQuestion];
 
     document.getElementById("question-number").innerHTML = currentQuestion + 1;
@@ -57,4 +62,14 @@ function resetAnswerButtons() {
     answerCard.classList.remove("bg-success");
     answerCard.classList.remove("bg-danger");
   }
+}
+
+function restartGame() {
+  document.getElementById("endscreen").style = "display: none;";
+  document.getElementById("question-body").style = "";
+
+  rightQuestions = 0;
+  currentQuestion = 0;
+
+  init();
 }

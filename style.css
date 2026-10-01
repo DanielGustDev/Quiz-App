@@ -38,7 +38,7 @@
 .quiz-card img {
     align-self: center;
 
-    width: 300px;
+    width: 160px;
 
     background-color: rgb(5, 44, 101) !important;
 
@@ -67,4 +67,10 @@
 .bg-success,
 .bg-danger {
     color: white;
+}
+
+.new-game-button {
+    align-self: flex-start;
+
+    margin-top: 16px;
 }

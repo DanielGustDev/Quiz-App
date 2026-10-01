@@ -28,6 +28,12 @@
     <div class="main-content">
         <div class="card quiz-card">
             <img src="./icons/main-logo.svg" class="card-img-top" alt="Main Logo">
+
+            <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25"
+                aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" id="progress-bar" style="width: 0%">0%</div>
+            </div>
+
             <div class="card-body" id="endscreen" style="display: none;">
 
                 <div>
@@ -37,6 +43,11 @@
                 <div>
                     <p>You answered <b id="score">X</b> of <b id="amount-of-questions">X</b> Questions correctly!</p>
                 </div>
+
+                <div class="new-game-button">
+                    <button onclick="restartGame()" class="btn btn-primary">New Game</button>
+                </div>
+
             </div>
             <div class="card-body" id="question-body">
                 <h5 class="card-title" id="questiontext">Question</h5>
