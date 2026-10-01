@@ -1,4 +1,5 @@
 // @ts-nocheck
+
 // Global State
 let rightQuestions = 0;
 let currentQuestion = 0;
