@@ -6,6 +6,8 @@ An interactive, responsive quiz application featuring category filtering, audio 
 
 ## 📁 Project Structure
 
+```text
+.
 Quiz-App/
 ├── icons/
 │ ├── main-logo.svg
@@ -18,6 +20,7 @@ Quiz-App/
 ├── script.js # Refactored quiz logic
 ├── style.css # Custom styles
 └── README.md
+```
 
 ---
 
