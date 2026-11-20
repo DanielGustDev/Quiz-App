@@ -132,12 +132,12 @@ function handleWrongAnswer(selection, rightAnswer) {
 }
 
 function highlightAnswerCard(elementId, cssClass) {
-  document.getElementById(elementId).parentNode.classList.add(cssClass);
+  document.getElementById(elementId).classList.add(cssClass);
 }
 
 function disableAnswerButtons() {
   for (let i = 1; i <= 4; i++) {
-    const card = document.getElementById(`answer_${i}`).parentNode;
+    const card = document.getElementById(`answer_${i}`);
     card.style.pointerEvents = "none";
   }
 }
@@ -158,7 +158,7 @@ function nextQuestion() {
 function resetAnswerButtons() {
   canAnswer = true;
   for (let i = 1; i <= 4; i++) {
-    const card = document.getElementById(`answer_${i}`).parentNode;
+    const card = document.getElementById(`answer_${i}`);
     card.classList.remove("bg-success", "bg-danger");
     card.style.pointerEvents = "auto";
   }

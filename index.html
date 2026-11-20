@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz-App</title>
 
+    <link rel="shortcut icon" href="icons/favicon.svg" type="image/x-icon">
+
     <meta name="theme-color" content="#052c65">
 
     <!-- Bootstrap via CDN -->
@@ -29,23 +31,24 @@
 
     <section class="main-content">
         <!-- Gemeinsamer Wrapper für Sidebar + Quiz-Inhalt -->
-        <div class="quiz-wrapper d-flex shadow">
+        <div class="quiz-wrapper d-flex flex-column flex-md-row shadow">
 
             <!-- Linke Sidebar (Kategorien) -->
-            <div class="category-sidebar border-end bg-white">
-                <div class="list-group list-group-flush h-100 d-flex flex-column justify-content-evenly">
-                    <a href="#" class="list-group-item list-group-item-action active"
+            <aside class="category-sidebar border-bottom border-md-bottom-0 border-md-end bg-white">
+                <div
+                    class="list-group list-group-flush flex-row flex-md-column justify-content-md-evenly overflow-auto">
+                    <a href="#" class="list-group-item list-group-item-action active text-nowrap"
                         onclick="filterCategory('all', event, this)">All Categories</a>
-                    <a href="#" class="list-group-item list-group-item-action"
+                    <a href="#" class="list-group-item list-group-item-action text-nowrap"
                         onclick="filterCategory('movies', event, this)">Movies</a>
-                    <a href="#" class="list-group-item list-group-item-action"
+                    <a href="#" class="list-group-item list-group-item-action text-nowrap"
                         onclick="filterCategory('games', event, this)">Games</a>
-                    <a href="#" class="list-group-item list-group-item-action"
+                    <a href="#" class="list-group-item list-group-item-action text-nowrap"
                         onclick="filterCategory('austria', event, this)">Austria</a>
-                    <a href="#" class="list-group-item list-group-item-action"
+                    <a href="#" class="list-group-item list-group-item-action text-nowrap"
                         onclick="filterCategory('frontend', event, this)">Frontend</a>
                 </div>
-            </div>
+            </aside>
 
             <!-- Rechter Quiz-Hauptbereich -->
             <div class="quiz-main-content d-flex flex-column flex-grow-1 bg-white">
@@ -57,7 +60,7 @@
                 </div>
 
                 <!-- Endscreen -->
-                <div class="card-body" id="endscreen" style="display: none;">
+                <div class="card-body endscreen" id="endscreen" style="display: none;">
                     <div>
                         <h3>Congratulations!</h3>
                     </div>
@@ -74,20 +77,15 @@
                 <div class="card-body" id="question-body">
                     <h5 class="card-title mb-4" id="questiontext">Question</h5>
 
-                    <div class="card quiz-answer mb-2" onclick="answer('answer_1')">
-                        <div class="card-body" id="answer_1">Answer</div>
-                    </div>
-
-                    <div class="card quiz-answer mb-2" onclick="answer('answer_2')">
-                        <div class="card-body" id="answer_2">Answer</div>
-                    </div>
-
-                    <div class="card quiz-answer mb-2" onclick="answer('answer_3')">
-                        <div class="card-body" id="answer_3">Answer</div>
-                    </div>
-
-                    <div class="card quiz-answer mb-2" onclick="answer('answer_4')">
-                        <div class="card-body" id="answer_4">Answer</div>
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-outline-dark text-start p-3 quiz-answer" id="answer_1"
+                            onclick="answer('answer_1')">Answer</button>
+                        <button type="button" class="btn btn-outline-dark text-start p-3 quiz-answer" id="answer_2"
+                            onclick="answer('answer_2')">Answer</button>
+                        <button type="button" class="btn btn-outline-dark text-start p-3 quiz-answer" id="answer_3"
+                            onclick="answer('answer_3')">Answer</button>
+                        <button type="button" class="btn btn-outline-dark text-start p-3 quiz-answer" id="answer_4"
+                            onclick="answer('answer_4')">Answer</button>
                     </div>
 
                     <div class="question-footer mt-4">
