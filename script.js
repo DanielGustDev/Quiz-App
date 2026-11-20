@@ -34,7 +34,9 @@ function applyCategoryFilter(category) {
   if (category === "all") {
     currentCategory = questions;
   } else {
-    currentCategory = questions.filter((q) => q.category === category);
+    currentCategory = questions.filter(
+      (question) => question.category === category,
+    );
   }
 }
 
@@ -61,13 +63,13 @@ function renderQuestionData() {
   toggleScreenVisibility(false);
   const question = currentCategory[currentQuestion];
   setElementText("question-number", currentQuestion + 1);
-  setElementText("questiontext", question["question"]);
+  setElementText("questiontext", question.question);
   renderAnswerTexts(question);
 }
 
 function renderAnswerTexts(question) {
-  for (let i = 1; i <= 4; i++) {
-    setElementText(`answer_${i}`, question[`answer_${i}`]);
+  for (let answerIndex = 1; answerIndex <= 4; answerIndex++) {
+    setElementText(`answer_${answerIndex}`, question[`answer_${answerIndex}`]);
   }
 }
 
@@ -90,55 +92,55 @@ function updateProgressbar() {
     ((currentQuestion + 1) / currentCategory.length) * 100,
   );
   const progressBar = document.getElementById("progress-bar");
-  progressBar.innerHTML = `${percent}%`;
+  progressBar.textContent = `${percent}%`;
   progressBar.style.width = `${percent}%`;
+  progressBar.parentElement.setAttribute("aria-valuenow", percent);
 }
 
 // Answer Logic & Interaction Lock
 function answer(selection) {
   if (!canAnswer) return;
-  canAnswer = false;
-  disableAnswerButtons();
-
-  const question = currentCategory[currentQuestion];
-  const selectedNumber = selection.slice(-1);
-  const isCorrect = rightAnswerSelected(
-    selectedNumber,
-    question["right-answer"],
-  );
-
-  if (isCorrect) {
-    handleCorrectAnswer(selection);
-  } else {
-    handleWrongAnswer(selection, question["right-answer"]);
-  }
-  document.getElementById("next-button").disabled = false;
+  lockAnswers();
+  evaluateSelection(selection);
+  setNextButtonState(false);
 }
 
-function rightAnswerSelected(selectedNumber, rightAnswer) {
-  return selectedNumber == rightAnswer;
+function lockAnswers() {
+  canAnswer = false;
+  setAnswerButtonsDisabled(true);
+}
+
+function evaluateSelection(selection) {
+  const question = currentCategory[currentQuestion];
+  const selectedNumber = Number(selection.slice(-1));
+  const rightAnswer = question["right-answer"];
+
+  if (selectedNumber === rightAnswer) {
+    handleCorrectAnswer(selection);
+  } else {
+    handleWrongAnswer(selection, rightAnswer);
+  }
 }
 
 function handleCorrectAnswer(selection) {
-  highlightAnswerCard(selection, "bg-success");
+  highlightAnswerButton(selection, "bg-success");
   playSound(audioSuccess);
   rightQuestions++;
 }
 
 function handleWrongAnswer(selection, rightAnswer) {
-  highlightAnswerCard(selection, "bg-danger");
-  highlightAnswerCard(`answer_${rightAnswer}`, "bg-success");
+  highlightAnswerButton(selection, "bg-danger");
+  highlightAnswerButton(`answer_${rightAnswer}`, "bg-success");
   playSound(audioFail);
 }
 
-function highlightAnswerCard(elementId, cssClass) {
+function highlightAnswerButton(elementId, cssClass) {
   document.getElementById(elementId).classList.add(cssClass);
 }
 
-function disableAnswerButtons() {
-  for (let i = 1; i <= 4; i++) {
-    const card = document.getElementById(`answer_${i}`);
-    card.style.pointerEvents = "none";
+function setAnswerButtonsDisabled(isDisabled) {
+  for (let answerIndex = 1; answerIndex <= 4; answerIndex++) {
+    document.getElementById(`answer_${answerIndex}`).disabled = isDisabled;
   }
 }
 
@@ -150,17 +152,17 @@ function playSound(audioObject) {
 // Game Navigation & Resets
 function nextQuestion() {
   currentQuestion++;
-  document.getElementById("next-button").disabled = true;
+  setNextButtonState(true);
   resetAnswerButtons();
   showQuestion();
 }
 
 function resetAnswerButtons() {
   canAnswer = true;
-  for (let i = 1; i <= 4; i++) {
-    const card = document.getElementById(`answer_${i}`);
-    card.classList.remove("bg-success", "bg-danger");
-    card.style.pointerEvents = "auto";
+  for (let answerIndex = 1; answerIndex <= 4; answerIndex++) {
+    const button = document.getElementById(`answer_${answerIndex}`);
+    button.classList.remove("bg-success", "bg-danger");
+    button.disabled = false;
   }
 }
 
@@ -168,11 +170,15 @@ function restartGame() {
   rightQuestions = 0;
   currentQuestion = 0;
   resetAnswerButtons();
-  document.getElementById("next-button").disabled = true;
+  setNextButtonState(true);
   updateQuizView();
 }
 
-// Utility Function
+// Utility Functions
+function setNextButtonState(isDisabled) {
+  document.getElementById("next-button").disabled = isDisabled;
+}
+
 function setElementText(elementId, text) {
-  document.getElementById(elementId).innerHTML = text;
+  document.getElementById(elementId).textContent = text;
 }
