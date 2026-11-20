@@ -81,20 +81,23 @@ function toggleScreenVisibility(isGameOver) {
   questionBody.style.display = isGameOver ? "none" : "";
 }
 
-function showEndscreen() {
-  toggleScreenVisibility(true);
-  setElementText("amount-of-questions", currentCategory.length);
-  setElementText("score", rightQuestions);
+function updateProgressbar() {
+  const percent = Math.round((currentQuestion / currentCategory.length) * 100);
+  setProgressbar(percent);
 }
 
-function updateProgressbar() {
-  const percent = Math.round(
-    ((currentQuestion + 1) / currentCategory.length) * 100,
-  );
+function setProgressbar(percent) {
   const progressBar = document.getElementById("progress-bar");
   progressBar.textContent = `${percent}%`;
   progressBar.style.width = `${percent}%`;
   progressBar.parentElement.setAttribute("aria-valuenow", percent);
+}
+
+function showEndscreen() {
+  toggleScreenVisibility(true);
+  setProgressbar(100);
+  setElementText("amount-of-questions", currentCategory.length);
+  setElementText("score", rightQuestions);
 }
 
 // Answer Logic & Interaction Lock

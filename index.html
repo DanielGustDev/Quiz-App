@@ -25,15 +25,14 @@
 <body onload="init()">
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Welcome to my Quiz!</span>
+            <span class="navbar-brand mb-0 fs-5 fs-sm-4 fw-semibold">Welcome to my Quiz!</span>
         </div>
     </nav>
 
     <section class="main-content">
-        <!-- Gemeinsamer Wrapper für Sidebar + Quiz-Inhalt -->
         <div class="quiz-wrapper d-flex flex-column flex-md-row shadow">
 
-            <!-- Linke Sidebar (Kategorien) -->
+            <!-- Kategorien: oben scrollbar auf Mobilgeräten, links als Spalte ab md -->
             <aside class="category-sidebar border-bottom border-md-bottom-0 border-md-end bg-white">
                 <div
                     class="list-group list-group-flush flex-row flex-md-column justify-content-md-evenly overflow-auto">
@@ -50,42 +49,39 @@
                 </div>
             </aside>
 
-            <!-- Rechter Quiz-Hauptbereich -->
+            <!-- Hauptbereich -->
             <div class="quiz-main-content d-flex flex-column flex-grow-1 bg-white">
-                <img src="./icons/main-logo.svg" class="card-img-top" alt="Main Logo">
+                <img src="./icons/main-logo.svg" class="quiz-logo" alt="Main Logo">
 
-                <div class="progress" role="progressbar" aria-label="Quiz progress" aria-valuenow="0" aria-valuemin="0"
-                    aria-valuemax="100">
+                <div class="progress mx-3" role="progressbar" aria-label="Quiz progress" aria-valuenow="0"
+                    aria-valuemin="0" aria-valuemax="100">
                     <div class="progress-bar" id="progress-bar" style="width: 0%">0%</div>
                 </div>
 
                 <!-- Endscreen -->
-                <div class="card-body endscreen" id="endscreen" style="display: none;">
-                    <div>
-                        <h3>Congratulations!</h3>
-                    </div>
-                    <div>
-                        <p>You answered <b id="score">X</b> of <b id="amount-of-questions">X</b> Questions correctly!
-                        </p>
-                    </div>
-                    <div class="new-game-button">
+                <div class="card-body endscreen-view p-3 p-md-4" id="endscreen" style="display: none;">
+                    <div class="endscreen-text">
+                        <h3 class="h4 h3-md mb-2">Congratulations!</h3>
+                        <p class="mb-3">You answered <b id="score">X</b> of <b id="amount-of-questions">X</b> Questions
+                            correctly!</p>
                         <button onclick="restartGame()" class="btn btn-primary">Restart</button>
                     </div>
+                    <img src="./icons/trophy.png" alt="Trophy" class="endscreen-trophy">
                 </div>
 
                 <!-- Question Body -->
-                <div class="card-body" id="question-body">
-                    <h5 class="card-title mb-4" id="questiontext">Question</h5>
+                <div class="card-body p-3 p-md-4" id="question-body">
+                    <h5 class="card-title fs-6 fs-sm-5 mb-3 mb-md-4" id="questiontext">Question</h5>
 
                     <div class="d-grid gap-2">
-                        <button type="button" class="btn btn-outline-dark text-start p-3 quiz-answer" id="answer_1"
-                            onclick="answer('answer_1')">Answer</button>
-                        <button type="button" class="btn btn-outline-dark text-start p-3 quiz-answer" id="answer_2"
-                            onclick="answer('answer_2')">Answer</button>
-                        <button type="button" class="btn btn-outline-dark text-start p-3 quiz-answer" id="answer_3"
-                            onclick="answer('answer_3')">Answer</button>
-                        <button type="button" class="btn btn-outline-dark text-start p-3 quiz-answer" id="answer_4"
-                            onclick="answer('answer_4')">Answer</button>
+                        <button type="button" class="btn btn-outline-dark text-start p-2 p-sm-3 quiz-answer"
+                            id="answer_1" onclick="answer('answer_1')">Answer</button>
+                        <button type="button" class="btn btn-outline-dark text-start p-2 p-sm-3 quiz-answer"
+                            id="answer_2" onclick="answer('answer_2')">Answer</button>
+                        <button type="button" class="btn btn-outline-dark text-start p-2 p-sm-3 quiz-answer"
+                            id="answer_3" onclick="answer('answer_3')">Answer</button>
+                        <button type="button" class="btn btn-outline-dark text-start p-2 p-sm-3 quiz-answer"
+                            id="answer_4" onclick="answer('answer_4')">Answer</button>
                     </div>
 
                     <div class="question-footer mt-4">

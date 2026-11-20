@@ -9,13 +9,12 @@
     align-items: center;
     justify-content: center;
 
-    min-height: 100dvh;
+    min-height: calc(100dvh - 56px);
 
-    padding: 16px;
+    padding: clamp(10px, 3vw, 24px);
 
     background-color: rgb(5, 44, 101);
 }
-
 
 .quiz-wrapper {
     max-width: 850px;
@@ -23,9 +22,9 @@
 
     border-radius: 12px;
 
-    overflow: hidden;
-
     background-color: rgb(255, 255, 255);
+
+    overflow: hidden;
 }
 
 .category-sidebar {
@@ -33,7 +32,7 @@
 }
 
 .category-sidebar .list-group-item {
-    padding: 16px 18px;
+    padding: 12px 16px;
 
     font-weight: 500;
 
@@ -42,16 +41,16 @@
 
 .category-sidebar .list-group-item.active {
     background-color: rgb(13, 110, 253);
-    color: rgb(255, 255, 255);
+    color: #ffffff;
 }
 
-.quiz-main-content img {
+.quiz-logo {
     align-self: center;
 
-    width: clamp(120px, 25vw, 160px);
+    width: clamp(100px, 24vw, 156px);
 
-    padding: 16px;
-    margin: 16px;
+    padding: 14px;
+    margin: clamp(12px, 2.5vw, 20px) auto;
 
     border-radius: 0.375rem;
 
@@ -59,42 +58,61 @@
 }
 
 .quiz-answer {
+    line-height: 1.35;
+
     transition: transform 0.12s ease, background-color 0.15s ease;
 }
 
 .quiz-answer:hover:not(:disabled):not(.bg-success):not(.bg-danger) {
-    transform: translateY(-1px);
     background-color: rgba(13, 110, 253, 0.08);
-    color: black;
+    color: rgb(0, 0, 0);
+
+    transform: translateY(-1px);
 }
 
-.quiz-answer.bg-success,
-.quiz-answer.bg-danger {
+.quiz-answer:disabled {
+    opacity: 1;
+}
+
+.quiz-answer.bg-success {
+    background-color: rgb(25, 135, 84);
+    border-color: rgb(25, 135, 84);
     color: rgb(255, 255, 255);
-    border-color: transparent;
+}
+
+.quiz-answer.bg-danger {
+    background-color: rgb(220, 53, 69);
+    border-color: rgb(220, 53, 69);
+    color: rgb(255, 255, 255);
 }
 
 .question-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 12px;
 
-    padding: 16px;
-
     border-top: 1px solid rgba(0, 0, 0, 0.12);
+
+    padding-top: 16px;
 }
 
-.endscreen {
+.endscreen-view {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: flex-start;
-    gap: 16px;
+    justify-content: center;
+    gap: 20px;
 
-    min-height: 280px;
+    min-height: 260px;
+}
 
-    margin: 16px 0px;
+.endscreen-trophy {
+    align-self: flex-end;
+
+    width: clamp(110px, 38vw, 160px);
+    height: auto;
 }
 
 @media (min-width: 768px) {
@@ -102,12 +120,21 @@
         width: 190px;
     }
 
-    .endscreen {
-        min-height: 360px;
+    .category-sidebar .list-group-item {
+        padding: 14px 18px;
 
-        background-image: url("./icons/trophy.png");
-        background-repeat: no-repeat;
-        background-size: 180px auto;
-        background-position: right center;
+        text-align: left;
+    }
+
+    .endscreen-view {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 360px;
+    }
+
+    .endscreen-trophy {
+        align-self: center;
+        width: clamp(120px, 20vw, 175px);
     }
 }
