@@ -26,6 +26,9 @@
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 fs-5 fs-sm-4 fw-semibold">Welcome to my Quiz!</span>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="openHighscoresModal()">
+                Highscores
+            </button>
         </div>
     </nav>
 
@@ -61,9 +64,14 @@
                 <!-- Endscreen -->
                 <div class="card-body endscreen-view p-3 p-md-4" id="endscreen" style="display: none;">
                     <div class="endscreen-text">
-                        <h3 class="h4 h3-md mb-2">Congratulations!</h3>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <h3 class="h4 mb-0">Congratulations!</h3>
+                            <span class="badge text-bg-success d-none" id="new-highscore-badge">New Highscore!</span>
+                        </div>
                         <p class="mb-3">You answered <b id="score">X</b> of <b id="amount-of-questions">X</b> Questions
                             correctly!</p>
+                        <p class="mb-3 text-muted">Highscore (<span id="highscore-category">All Categories</span>): <b
+                                id="highscore">0</b> of <b id="highscore-total">X</b></p>
                         <button onclick="restartGame()" class="btn btn-primary">Restart</button>
                     </div>
                     <img src="./icons/trophy.png" alt="Trophy" class="endscreen-trophy">
@@ -93,7 +101,23 @@
 
         </div>
     </section>
-
+    <div class="modal fade" id="highscoresModal" tabindex="-1" aria-labelledby="highscoresModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="highscoresModalLabel">Category Highscores</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush" id="all-highscores-list"></ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
